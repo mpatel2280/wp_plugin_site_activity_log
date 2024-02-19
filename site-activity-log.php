@@ -460,7 +460,7 @@ if ( ! function_exists( 'site_user_activity_function' ) ) :
 		}
 		if ( isset( $_GET['txtsearch'] ) && '' != $_GET['txtsearch'] ) {
 			$searchtxt = sanitize_text_field( wp_unslash( $_GET['txtsearch'] ) );
-			$where    .= $wpdb->prepare( ' AND user_name like %s or user_role like %s or object_type like %s or action like %s', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%' );
+			$where    .= $wpdb->prepare( ' AND user_name like %s or user_email like %s or user_role like %s or object_type like %s or action like %s', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%', '%' . $wpdb->esc_like( $searchtxt ) . '%' );
 		}
 		if ( isset( $_GET['dateshow'] ) && in_array( $_GET['dateshow'], array( 'today', 'yesterday', 'week', 'this-month', 'month', '2-month', '3-month', '6-month', 'this-year', 'last-year', 'custom' ) ) ) {
 			$dateshow     = sanitize_text_field( wp_unslash( $_GET['dateshow'] ) );
@@ -793,7 +793,7 @@ if ( ! function_exists( 'site_user_activity_function' ) ) :
 							<p class="search-box">
 								<?php wp_nonce_field( 'site_action_nonce', 'site_nonce' ); ?>
 								<label class="screen-reader-text" for="search-input"><?php esc_html_e( 'Search', 'site-activity-log' ); ?> :</label>
-								<input id="user-search-input" type="search" placeholder="<?php esc_attr_e( 'User, Role, Action', 'site-activity-log' ); ?>" value="<?php echo esc_attr( $searchtxt ); ?>" name="txtSearchinput">
+								<input id="user-search-input" type="search" placeholder="<?php esc_attr_e( 'User, Email, Role, Action', 'site-activity-log' ); ?>" value="<?php echo esc_attr( $searchtxt ); ?>" name="txtSearchinput">
 								<input id="search-submit" class="button" type="submit" value="<?php esc_attr_e( 'Search', 'site-activity-log' ); ?>" name="btnSearch">
 							</p>
 						</div>
@@ -938,11 +938,13 @@ if ( ! function_exists( 'site_user_activity_function' ) ) :
 										?>
 									</td>
 									<td class="site-pro-feature" colspan="2">
-										<span class="dashicons dashicons-visibility site-view-log"></span>
+										<!-- <span class="dashicons dashicons-visibility site-view-log"></span> -->
+										<i class="fa-solid fa-eye"></i>
 										<a title="Unfavorite" class="site-favorite" href="#"></a>
-										<a title="Delete" class="site-delete-log" href="#">
+										<!-- <a title="Delete" class="site-delete-log" href="#">
 											<span class="dashicons dashicons-trash"></span>
-										</a>
+										</a> -->
+										<i class="fa-solid fa-trash-can"></i>
 									</td>
 								</tr>
 								<?php

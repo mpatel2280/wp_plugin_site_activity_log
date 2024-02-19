@@ -1305,7 +1305,7 @@ if ( ! function_exists( 'site_plugin_upgrade_notice' ) ) {
 			<?php
 				$genre_url = add_query_arg( 'site_plugin_upgrade_notice', 0, get_permalink() );
 			?>
-				<p><?php esc_html_e( 'Site Activity Log Plugin', 'site-activity-log' ); ?> :
+				<p><i class="fa-solid fa-hand-point-right"></i> &nbsp;<?php esc_html_e( 'Site Activity Log Plugin', 'site-activity-log' ); ?> :
 					<a href="https://www.sitetech.com/documents/wordpress/site-activity-log-lite/" target="_blank" style="text-decoration: underline">
 						<strong><?php esc_html_e( 'Live Documentation', 'site-activity-log' ); ?></strong>
 					</a>
@@ -1416,8 +1416,36 @@ if ( ! function_exists( 'site_admin_scripts' ) ) {
 		if ( is_rtl() ) {
 			wp_enqueue_style( 'site-style_rtl-css', plugins_url( 'css/style_rtl.css', __FILE__ ), array(), '1.0' );
 		}
+
+		// wp_register_style('Font_Awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
+		// wp_enqueue_style('Font_Awesome');
+
+		// wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true );
+		// wp_enqueue_script('jQuery');
 	}
 }
+
+/**
+ * Font Awesome Kit Setup
+ *
+ * This will add your Font Awesome Kit to the front-end, the admin back-end,
+ * and the login screen area.
+ */
+if (! function_exists('fa_custom_setup_kit') ) {
+	function fa_custom_setup_kit($kit_url = '') {
+	  foreach ( [ 'wp_enqueue_scripts', 'admin_enqueue_scripts', 'login_enqueue_scripts' ] as $action ) {
+		add_action(
+		  $action,
+		  function () use ( $kit_url ) {
+			wp_enqueue_script( 'font-awesome-kit', $kit_url, [], null );
+		  }
+		);
+	  }
+	}
+}
+
+fa_custom_setup_kit('https://kit.fontawesome.com/'.FONT_AWESOME_KITCODE.'.js');
+  
 add_action( 'admin_enqueue_scripts', 'site_admin_scripts' );
 
 $wpp_version = get_bloginfo( 'version' );
